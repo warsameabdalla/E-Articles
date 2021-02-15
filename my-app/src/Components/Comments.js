@@ -6,9 +6,11 @@ import StarUpdater from "./StarUpdater";
 export default class Comments extends Component {
   state = {
     comments: [],
+    isLoading: false,
   };
 
   componentDidMount() {
+    this.setState({ isLoading: true });
     console.log("mounting");
     this.fetchArticleComments(this.props.id);
   }
@@ -19,7 +21,9 @@ export default class Comments extends Component {
     }
   }
   render() {
-    return (
+    return this.state.isLoading ? (
+      <h1>Comments are still Loading</h1>
+    ) : (
       <div>
         <Addcomment
           addNewComment={this.addNewComment}
@@ -27,7 +31,7 @@ export default class Comments extends Component {
           user={this.props.user}
         />
         <h3>{this.props.comment_count} comments</h3>
-        {this.state.comments.map((comment) => {
+        {this.state.comments.map((comment, index) => {
           return (
             <div className="comment">
               <ul>
@@ -38,9 +42,12 @@ export default class Comments extends Component {
                   </p>
                   <p>Votes: {comment.votes}</p>
                   <StarUpdater
+                    user={this.props.user}
                     comment_id={comment.comment_id}
                     votes={comment.votes}
+                    comment={comment}
                     updateTheComment={this.updateTheComment}
+                    index={index}
                   />
                   <p>author: {comment.author}</p>
                   {comment.author === this.props.user && (
@@ -65,7 +72,7 @@ export default class Comments extends Component {
     api
       .getArticleComments(id)
       .then(({ comments }) => {
-        this.setState({ comments });
+        this.setState({ comments, isLoading: false });
         console.log(this.state);
       })
       .catch(({ response: { data } }) => {
@@ -90,7 +97,12 @@ export default class Comments extends Component {
       });
     });
   };
-  updateTheComment = (id) => {
-    this.setState({ comments: [id] });
+  updateTheComment = (id, index) => {
+    this.setState((currentState) => {
+      currentState.comments[index] = id;
+      return {
+        comments: [...currentState.comments],
+      };
+    });
   };
 }

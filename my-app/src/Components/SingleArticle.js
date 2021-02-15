@@ -6,8 +6,10 @@ import StarUpdater from "./StarUpdater";
 export default class SingleArticle extends Component {
   state = {
     singleArticle: [],
+    isLoading: false,
   };
   componentDidMount() {
+    this.setState({ isLoading: true });
     console.log("mounting");
     this.fetchArticle(this.props.article_id);
   }
@@ -21,7 +23,9 @@ export default class SingleArticle extends Component {
   render() {
     console.log(this.state.singleArticle);
     {
-      return typeof this.state.singleArticle === "string" ? (
+      return this.state.isLoading ? (
+        <h1>Article is still Loading</h1>
+      ) : typeof this.state.singleArticle === "string" ? (
         <h1>{this.state.singleArticle}</h1>
       ) : (
         <div className="singlearticle">
@@ -31,8 +35,10 @@ export default class SingleArticle extends Component {
           <h4>Author:{this.state.singleArticle.author}</h4>
           <h4>Votes: {this.state.singleArticle.votes}</h4>
           <StarUpdater
+            user={this.props.user}
             id={this.state.singleArticle.article_id}
             star={this.state.singleArticle.votes}
+            article={this.state.singleArticle}
             updateTheArticle={this.updateTheArticle}
           />
           {this.props.article_id && (
@@ -50,7 +56,7 @@ export default class SingleArticle extends Component {
     return api
       .getArticle(id)
       .then((singleArticle) => {
-        this.setState({ singleArticle });
+        this.setState({ singleArticle, isLoading: false });
       })
       .catch(({ response: { data } }) => {
         this.setState({ singleArticle: data.msg });

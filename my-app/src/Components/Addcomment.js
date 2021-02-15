@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+// how do i clear the input affter i post?
 export default class Addcomment extends Component {
   state = {
     commentInput: "",
@@ -31,14 +31,15 @@ export default class Addcomment extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     if (this.state.bool == true) {
-      const { commentInput } = this.state;
+      // const { commentInput } = this.state;
       const postComment = {
         author: this.props.user,
-        body: commentInput,
+        body: this.state.commentInput,
         article_id: this.props.id,
       };
-      this.props.addNewComment(postComment);
       this.setState({ commentInput: "" });
+      console.log(this.state);
+      this.props.addNewComment(postComment);
     }
   };
   submitting = (event) => {

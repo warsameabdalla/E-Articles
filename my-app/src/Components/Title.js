@@ -1,9 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
 
-export default function Title() {
-  return (
-    <div className="title">
-      <h1>E-Articles</h1>
-    </div>
-  );
+export default class Title extends Component {
+  render() {
+    return (
+      <div>
+        <h1>E-Articles</h1>
+      </div>
+    );
+  }
 }

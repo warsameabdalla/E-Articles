@@ -10,15 +10,28 @@ import NotFound from "./Components/NotFound";
 
 export default class App extends Component {
   state = {
-    user: "tickle122",
+    user: "",
+    loggedin: false,
   };
   render() {
     return (
       <div className="App">
-        <Title />
+        <div className="title">
+          <div className="login">
+            {!this.state.loggedin ? (
+              <button onClick={this.login}>log in</button>
+            ) : (
+              <div>
+                <span>user: {this.state.user}</span>
+                <button onClick={this.login}>logout</button>
+              </div>
+            )}
+          </div>
+          <Title />
+        </div>
         <img
           className="img1"
-          src="https://www.puma-catchup.com/wp-content/uploads/2019/04/H1-Football.jpg"
+          src="https://www.jonesday.com/-/media/files/publications/2019/05/when-coding-is-criminal/when-coding-is-criminal.jpg"
           alt="football article"
           height="400px"
           width="300px"
@@ -35,4 +48,15 @@ export default class App extends Component {
       </div>
     );
   }
+  login = (e) => {
+    if (this.state.loggedin) {
+      this.setState((currentState) => {
+        return { loggedin: !currentState.loggedin, user: "" };
+      });
+    } else {
+      this.setState((currentState) => {
+        return { loggedin: !currentState.loggedin, user: "tickle122" };
+      });
+    }
+  };
 }
