@@ -15,10 +15,14 @@ export default class Addcomment extends Component {
             type="text"
             id="body"
             placeholder="write a comment . . ."
+            value={this.state.commentInput}
           />
           <button onClick={this.submitting} action="submit">
             Add comment
           </button>
+          {!this.props.user && this.state.commentInput ? (
+            <p>Please log in to add a comment</p>
+          ) : null}
           {!this.state.bool && <p>Make sure you write in the input box ! !</p>}
         </form>
       </div>
@@ -38,7 +42,6 @@ export default class Addcomment extends Component {
         article_id: this.props.id,
       };
       this.setState({ commentInput: "" });
-      console.log(this.state);
       this.props.addNewComment(postComment);
     }
   };

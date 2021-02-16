@@ -31,7 +31,7 @@ export default class App extends Component {
         </div>
         <img
           className="img1"
-          src="https://www.jonesday.com/-/media/files/publications/2019/05/when-coding-is-criminal/when-coding-is-criminal.jpg"
+          src="https://i.redd.it/semlc7p12l401.png"
           alt="football article"
           height="400px"
           width="300px"
