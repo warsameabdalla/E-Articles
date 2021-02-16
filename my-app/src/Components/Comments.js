@@ -7,11 +7,11 @@ export default class Comments extends Component {
   state = {
     comments: [],
     isLoading: false,
+    hideDelete: false,
   };
 
   componentDidMount() {
     this.setState({ isLoading: true });
-    console.log("mounting");
     this.fetchArticleComments(this.props.id);
   }
   componentDidUpdate(pp, ps) {
@@ -50,7 +50,8 @@ export default class Comments extends Component {
                     index={index}
                   />
                   <p>author: {comment.author}</p>
-                  {comment.author === this.props.user && (
+                  {comment.author === this.props.user &&
+                  !this.state.hideDelete ? (
                     <button
                       onClick={() => {
                         this.deleteComment(comment.comment_id);
@@ -58,7 +59,7 @@ export default class Comments extends Component {
                     >
                       Delete
                     </button>
-                  )}
+                  ) : null}
                 </li>
                 <br />
               </ul>
@@ -73,10 +74,8 @@ export default class Comments extends Component {
       .getArticleComments(id)
       .then(({ comments }) => {
         this.setState({ comments, isLoading: false });
-        console.log(this.state);
       })
       .catch(({ response: { data } }) => {
-        console.log(data);
         this.setState({ comments: data.msg });
       });
   };
@@ -87,13 +86,15 @@ export default class Comments extends Component {
       });
     });
   };
+
   deleteComment = (id) => {
+    this.setState({ hideDelete: true });
     api.deleteCommentById(id).then((deletedComment) => {
       this.setState((currentState) => {
         const updatedComments = currentState.comments.filter((comment) => {
           return comment.comment_id !== id;
         });
-        return { comments: updatedComments };
+        return { comments: updatedComments, hideDelete: false };
       });
     });
   };

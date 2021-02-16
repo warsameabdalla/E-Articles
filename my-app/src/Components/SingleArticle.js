@@ -6,28 +6,26 @@ import StarUpdater from "./StarUpdater";
 export default class SingleArticle extends Component {
   state = {
     singleArticle: [],
+    errMsg: "",
     isLoading: false,
   };
   componentDidMount() {
     this.setState({ isLoading: true });
-    console.log("mounting");
     this.fetchArticle(this.props.article_id);
   }
   componentDidUpdate(pp, ps) {
     const id = this.props.article_id;
-    console.log(pp.article_id, id);
     if (pp.article_id !== id) {
       this.fetchArticle(id);
     }
   }
   render() {
-    console.log(this.state.singleArticle);
-    {
-      return this.state.isLoading ? (
-        <h1>Article is still Loading</h1>
-      ) : typeof this.state.singleArticle === "string" ? (
-        <h1>{this.state.singleArticle}</h1>
-      ) : (
+    return this.state.isLoading ? (
+      <h1>Article is still Loading</h1>
+    ) : this.state.errMsg ? (
+      <p>{this.state.errMsg}</p>
+    ) : (
+      <div className="singleArticleContainer">
         <div className="singlearticle">
           <p>Topic: {this.state.singleArticle.topic}</p>
           <h1>{this.state.singleArticle.title}</h1>
@@ -49,8 +47,8 @@ export default class SingleArticle extends Component {
             />
           )}
         </div>
-      );
-    }
+      </div>
+    );
   }
   fetchArticle = (id) => {
     return api
@@ -59,7 +57,8 @@ export default class SingleArticle extends Component {
         this.setState({ singleArticle, isLoading: false });
       })
       .catch(({ response: { data } }) => {
-        this.setState({ singleArticle: data.msg });
+        this.setState({ errMsg: data.msg, isLoading: false });
+        console.log(data.msg);
       });
   };
   updateTheArticle = (id) => {

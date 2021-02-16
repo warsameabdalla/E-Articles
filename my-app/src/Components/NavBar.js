@@ -18,7 +18,6 @@ export default class NavBar extends Component {
         <h1>Click A Topic !</h1>
 
         {this.state.topics.map((topic) => {
-          console.log(topic);
           return (
             <p>
               <Link to={`/topics/${topic.slug}`}>{topic.slug}</Link>
