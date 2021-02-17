@@ -13,8 +13,8 @@ export default class StarUpdater extends Component {
       <div>
         <button
           disabled={this.state.starDifference === 1}
-          onClick={() => {
-            return this.handleClick(1);
+          onClick={(e) => {
+            return this.handleClick(1, e);
           }}
         >
           up
@@ -22,8 +22,8 @@ export default class StarUpdater extends Component {
         <span> &#9733;</span>
         <button
           disabled={this.state.starDifference === -1}
-          onClick={() => {
-            return this.handleClick(-1);
+          onClick={(e) => {
+            return this.handleClick(-1, e);
           }}
         >
           down
@@ -34,7 +34,7 @@ export default class StarUpdater extends Component {
       <p> &#9733;</p>
     );
   }
-  handleClick = (starChange) => {
+  handleClick = (starChange, e) => {
     if (this.props.comment_id) {
       this.setState((currentState) => {
         return {
@@ -48,11 +48,8 @@ export default class StarUpdater extends Component {
       this.props.updateTheComment(a, this.props.index);
       api
         .updateCommentVote(this.props.comment_id, starChange)
-        .then((err) => {
-          console.log("hey");
-        })
+        .then((err) => {})
         .catch((err) => {
-          console.log("hahah");
           this.setState((currentState) => {
             return { errMsg: "like request failed refresh the page" };
           });
@@ -68,12 +65,8 @@ export default class StarUpdater extends Component {
       this.props.updateTheArticle(b);
       api
         .updateStar(this.props.id, starChange)
-        .then((err) => {
-          console.log("hey");
-        })
-        .catch((err) => {
-          console.log("hello");
-        });
+        .then((err) => {})
+        .catch((err) => {});
     }
   };
 }

@@ -80,9 +80,9 @@ export default class Comments extends Component {
       });
   };
   addNewComment = (input) => {
-    api.addCommentById(input).then(({ Article }) => {
+    api.addCommentById(input).then(({ comment }) => {
       this.setState((currentState) => {
-        return { comments: [...Article, ...currentState.comments] };
+        return { comments: [...comment, ...currentState.comments] };
       });
     });
   };

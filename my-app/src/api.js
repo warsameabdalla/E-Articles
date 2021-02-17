@@ -1,17 +1,18 @@
 import axios from "axios";
 
-export const getArticles = (topic) => {
-  return topic !== undefined
-    ? axios
-        .get(`http://nc-newsapi.herokuapp.com/api/articles?topic=${topic}`)
-        .then(({ data }) => {
-          return data;
-        })
-    : axios
-        .get("http://nc-newsapi.herokuapp.com/api/articles")
-        .then(({ data }) => {
-          return data;
-        });
+export const getArticles = (topic, sort_by, order) => {
+  console.log(order);
+  return axios
+    .get(`http://nc-newsapi.herokuapp.com/api/articles`, {
+      params: {
+        topic,
+        sort_by,
+        order,
+      },
+    })
+    .then(({ data }) => {
+      return data;
+    });
 };
 export const getTopics = () => {
   return axios
@@ -32,7 +33,6 @@ export const getArticleComments = (id) => {
   return axios
     .get(`http://nc-newsapi.herokuapp.com/api/articles/${id}/comments`)
     .then(({ data }) => {
-      console.log(data);
       return data;
     });
 };
@@ -40,7 +40,6 @@ export const sortingArticles = (value) => {
   return axios
     .get(`http://nc-newsapi.herokuapp.com/api/articles?sort_by=${value}`)
     .then(({ data }) => {
-      console.log(value, data);
       return data;
     });
 };
@@ -51,7 +50,6 @@ export const addCommentById = (input) => {
       input
     )
     .then(({ data }) => {
-      console.log(data);
       return data;
     });
 };
@@ -59,7 +57,6 @@ export const deleteCommentById = (id) => {
   return axios
     .delete(`http://nc-newsapi.herokuapp.com/api/comments/${id}`)
     .then(({ data }) => {
-      console.log(data);
       return data;
     });
 };
@@ -69,7 +66,6 @@ export const updateStar = (id, starChange) => {
       inc_votes: starChange,
     })
     .then(({ data }) => {
-      console.log(data);
       return data;
     });
 };
@@ -79,7 +75,6 @@ export const updateCommentVote = (id, starChange) => {
       inc_votes: starChange,
     })
     .then(({ data }) => {
-      console.log(data);
       return data;
     });
 };
