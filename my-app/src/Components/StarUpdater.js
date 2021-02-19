@@ -35,14 +35,14 @@ export default class StarUpdater extends Component {
     );
   }
   handleClick = (starChange, e) => {
+    this.setState((currentState) => {
+      return {
+        starDifference: (currentState.starDifference += starChange),
+        errMsg: "",
+      };
+    });
     if (this.props.comment_id) {
-      this.setState((currentState) => {
-        return {
-          starDifference: (currentState.starDifference += starChange),
-          errMsg: "",
-        };
-      });
-      let a = this.props.comment;
+      let a = {...this.props.comment};
       console.log(a);
       a.votes += starChange;
       this.props.updateTheComment(a, this.props.index);
@@ -55,14 +55,9 @@ export default class StarUpdater extends Component {
           });
         });
     } else {
-      this.setState((currentState) => {
-        return {
-          starDifference: (currentState.starDifference += starChange),
-        };
-      });
-      let b = this.props.article;
-      b.votes += starChange;
-      this.props.updateTheArticle(b);
+      let updatedArticle = {...this.props.article};
+      updatedArticle.votes += starChange;
+      this.props.updateTheArticle(updatedArticle);
       api
         .updateStar(this.props.id, starChange)
         .then((err) => {})

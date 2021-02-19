@@ -5,7 +5,7 @@ export default class Articles extends Component {
   state = {
     articles: [],
     isLoading: false,
-    value: null,
+    value: undefined,
     query: null,
     sorted: false,
   };
@@ -22,27 +22,25 @@ export default class Articles extends Component {
   render() {
     {
       return this.state.isLoading ? (
-        <h1>Page is Loading</h1>
+        <h2>Page is Loading</h2>
       ) : !this.state.articles.length ? (
-        <h1>Topic does not exist!</h1>
+        <h2>Topic does not exist!</h2>
       ) : (
         <div className="articles">
           {this.props.topic && !this.state.sorted ? (
-            <h1>{this.props.topic} Articles</h1>
+            <h2>{this.props.topic} Articles</h2>
           ) : (
-            <h1>Articles</h1>
+            <h2>Articles</h2>
           )}
           <form onSubmit={this.sortArticles}>
-            <label for="sort_by">Sort Articles By:</label>
+            <label htmlFor="sort_by">Sort Articles By:</label>
             <select
               value={this.state.value}
               onChange={this.handleInput}
               name="sort_by"
               id="sort_by"
             >
-              <option value="" selected disabled hidden>
-                Choose here
-              </option>
+            
               <option value="created_at">Most Recent</option>
               <option value="comment_count">Comment Count</option>
               <option value="votes">Votes</option>
@@ -53,11 +51,11 @@ export default class Articles extends Component {
           <button onClick={this.sortOrder}>asc</button>
           <button onClick={this.sortOrder}>desc</button>
 
-          {this.state.articles.map((article) => {
+          {this.state.articles.map((article, index) => {
             return (
-              <div className="articles1">
+              <div key={index} className="articles1">
                 <Link to={`/articles/${article.article_id}`}>
-                  <h2>{article.title}</h2>
+                  <h3>{article.title}</h3>
                   <span>
                     Date: {new Date(article.created_at).toDateString()}
                   </span>

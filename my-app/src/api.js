@@ -36,13 +36,13 @@ export const getArticleComments = (id) => {
       return data;
     });
 };
-export const sortingArticles = (value) => {
-  return axios
-    .get(`http://nc-newsapi.herokuapp.com/api/articles?sort_by=${value}`)
-    .then(({ data }) => {
-      return data;
-    });
-};
+// export const sortingArticles = (value) => {
+//   return axios
+//     .get(`http://nc-newsapi.herokuapp.com/api/articles?sort_by=${value}`)
+//     .then(({ data }) => {
+//       return data;
+//     });
+// };
 export const addCommentById = (input) => {
   return axios
     .post(

@@ -12,14 +12,14 @@ export default class NavBar extends Component {
   }
   render() {
     return this.state.isLoading ? (
-      <h1>Topics are still Loading</h1>
+      <h2>Topics are still Loading</h2>
     ) : (
       <div className="navbar">
-        <h1>Click A Topic !</h1>
+        <h2>Click A Topic !</h2>
 
-        {this.state.topics.map((topic) => {
+        {this.state.topics.map((topic, index) => {
           return (
-            <p>
+            <p key={index}>
               <Link to={`/topics/${topic.slug}`}>{topic.slug}</Link>
             </p>
           );

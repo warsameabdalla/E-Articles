@@ -5,7 +5,7 @@ export default class Title extends Component {
     return (
       <div>
         <Link to={`/`}>
-          <h1>E-Articles</h1>
+          <h2>E-Articles</h2>
         </Link>
       </div>
     );

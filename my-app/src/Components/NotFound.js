@@ -3,7 +3,7 @@ import React from "react";
 export default function NotFound() {
   return (
     <div>
-      <h1>Sorry Page Does Not Exist</h1>
+      <h2>Sorry Page Does Not Exist</h2>
     </div>
   );
 }

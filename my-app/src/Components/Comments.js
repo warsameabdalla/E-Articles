@@ -22,7 +22,7 @@ export default class Comments extends Component {
   }
   render() {
     return this.state.isLoading ? (
-      <h1>Comments are still Loading</h1>
+      <h2>Comments are still Loading</h2>
     ) : (
       <div>
         <Addcomment
@@ -33,7 +33,7 @@ export default class Comments extends Component {
         <h3>{this.props.comment_count} comments</h3>
         {this.state.comments.map((comment, index) => {
           return (
-            <div className="comment">
+            <div key={index} className="comment">
               <ul>
                 <li>
                   <p>{comment.body}</p>

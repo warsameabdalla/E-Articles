@@ -7,10 +7,9 @@ export default class SingleArticle extends Component {
   state = {
     singleArticle: [],
     errMsg: "",
-    isLoading: false,
+    isLoading: true,
   };
   componentDidMount() {
-    this.setState({ isLoading: true });
     this.fetchArticle(this.props.article_id);
   }
   componentDidUpdate(pp, ps) {
@@ -28,10 +27,10 @@ export default class SingleArticle extends Component {
       <div className="singleArticleContainer">
         <div className="singlearticle">
           <p>Topic: {this.state.singleArticle.topic}</p>
-          <h1>{this.state.singleArticle.title}</h1>
+          <h3>{this.state.singleArticle.title}</h3>
           <p>{this.state.singleArticle.body}</p>
-          <h4>Author:{this.state.singleArticle.author}</h4>
-          <h4>Votes: {this.state.singleArticle.votes}</h4>
+          <p>Author:{this.state.singleArticle.author}</p>
+          <p>Votes: {this.state.singleArticle.votes}</p>
           <StarUpdater
             user={this.props.user}
             id={this.state.singleArticle.article_id}
@@ -61,7 +60,7 @@ export default class SingleArticle extends Component {
         console.log(data.msg);
       });
   };
-  updateTheArticle = (id) => {
-    this.setState({ singleArticle: id });
+  updateTheArticle = (UpdatedArticle) => {
+    this.setState({ singleArticle: UpdatedArticle });
   };
 }

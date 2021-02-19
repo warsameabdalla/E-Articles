@@ -3,13 +3,13 @@ import React, { Component } from "react";
 export default class Addcomment extends Component {
   state = {
     commentInput: "",
-    bool: true,
+    input: true,
   };
   render() {
     return (
       <div className="addcomment">
         <form onSubmit={this.handleSubmit}>
-          <label for="body">Add a comment</label>
+          <label htmlFor="body">Add a comment</label>
           <input
             onChange={this.handleInput}
             type="text"
@@ -17,24 +17,24 @@ export default class Addcomment extends Component {
             placeholder="write a comment . . ."
             value={this.state.commentInput}
           />
-          <button onClick={this.submitting} action="submit">
+          <button onClick={this.submitting} disabled={!this.props.user}action="submit">
             Add comment
           </button>
           {!this.props.user && this.state.commentInput ? (
             <p>Please log in to add a comment</p>
           ) : null}
-          {!this.state.bool && <p>Make sure you write in the input box ! !</p>}
+         
         </form>
       </div>
     );
   }
   handleInput = ({ target: { value } }) => {
     this.setState({ commentInput: value });
-    return this.state.commentInput && this.setState({ bool: true });
+    return this.state.commentInput && this.setState({ input: true });
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    if (this.state.bool == true) {
+    if (this.state.input == true) {
       // const { commentInput } = this.state;
       const postComment = {
         author: this.props.user,
@@ -46,6 +46,6 @@ export default class Addcomment extends Component {
     }
   };
   submitting = (event) => {
-    return !this.state.commentInput && this.setState({ bool: false });
+    return !this.state.commentInput && this.setState({ input: false });
   };
 }
