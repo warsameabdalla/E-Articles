@@ -5,7 +5,8 @@ import { Link } from "@reach/router";
 export default class NavBar extends Component {
   state = {
     topics: [],
-    isLoading: false,
+    isLoading: true,
+    errMsg: ""
   };
   componentDidMount() {
     this.fetchTopics();
@@ -13,7 +14,9 @@ export default class NavBar extends Component {
   render() {
     return this.state.isLoading ? (
       <h2>Topics are still Loading</h2>
-    ) : (
+    ) : (this.state.errMsg ? (
+      <h2>Request failed</h2>
+    ) :
       <div className="navbar">
         <h2>Click A Topic !</h2>
 
@@ -28,9 +31,11 @@ export default class NavBar extends Component {
     );
   }
   fetchTopics = () => {
-    this.setState({ isLoading: true });
+    // this.setState({ isLoading: true });
     return api.getTopics().then((topics) => {
       this.setState({ topics, isLoading: false });
+    }).catch(({ response: { data } }) => {
+      this.setState({ errMsg: data.msg, isLoading: false });
     });
   };
 }

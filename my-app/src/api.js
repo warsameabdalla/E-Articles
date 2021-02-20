@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const getArticles = (topic, sort_by, order) => {
-  console.log(order);
   return axios
     .get(`http://nc-newsapi.herokuapp.com/api/articles`, {
       params: {
@@ -29,7 +28,6 @@ export const getArticle = (id) => {
     });
 };
 export const getArticleComments = (id) => {
-  console.log(id, "<-----id");
   return axios
     .get(`http://nc-newsapi.herokuapp.com/api/articles/${id}/comments`)
     .then(({ data }) => {

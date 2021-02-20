@@ -42,10 +42,10 @@ export default class StarUpdater extends Component {
       };
     });
     if (this.props.comment_id) {
-      let a = {...this.props.comment};
-      console.log(a);
-      a.votes += starChange;
-      this.props.updateTheComment(a, this.props.index);
+      let updatedComment = {...this.props.comment};
+      console.log(updatedComment);
+      updatedComment.votes += starChange;
+      this.props.updateTheComment(updatedComment, this.props.index);
       api
         .updateCommentVote(this.props.comment_id, starChange)
         .then((err) => {})

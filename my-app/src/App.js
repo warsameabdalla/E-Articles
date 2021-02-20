@@ -40,7 +40,6 @@ export default class App extends Component {
         <Router>
           <User path="/user/:username" />
           <Articles path="/" />
-          <Articles path="/articles" />
           <Articles path="/topics/:topic" />
           <SingleArticle user={this.state.user} path="/articles/:article_id" />
           <NotFound default />

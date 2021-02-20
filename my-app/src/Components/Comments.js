@@ -23,7 +23,7 @@ export default class Comments extends Component {
   render() {
     return this.state.isLoading ? (
       <h2>Comments are still Loading</h2>
-    ) : (
+    ) : ( this.state.errMsg?<h2>Your request has failed</h2>:
       <div>
         <Addcomment
           addNewComment={this.addNewComment}
@@ -76,7 +76,7 @@ export default class Comments extends Component {
         this.setState({ comments, isLoading: false });
       })
       .catch(({ response: { data } }) => {
-        this.setState({ comments: data.msg });
+        this.setState({ errMsg: data.msg, isLoading: false });
       });
   };
   addNewComment = (input) => {
@@ -96,13 +96,16 @@ export default class Comments extends Component {
         });
         return { comments: updatedComments, hideDelete: false };
       });
+    }).catch(({ response: { data } }) => {
+      this.setState({ errMsg: data.msg, isLoading: false });
     });
   };
-  updateTheComment = (id, index) => {
+  updateTheComment = (updatedComment, index) => {
     this.setState((currentState) => {
-      currentState.comments[index] = id;
+      let updatedComments = [...currentState.comments]
+      updatedComments[index] = updatedComment;
       return {
-        comments: [...currentState.comments],
+        comments: updatedComments,
       };
     });
   };

@@ -20,7 +20,7 @@ export default class SingleArticle extends Component {
   }
   render() {
     return this.state.isLoading ? (
-      <h1>Article is still Loading</h1>
+      <h2>Article is still Loading</h2>
     ) : this.state.errMsg ? (
       <p>{this.state.errMsg}</p>
     ) : (

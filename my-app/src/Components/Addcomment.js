@@ -4,6 +4,7 @@ export default class Addcomment extends Component {
   state = {
     commentInput: "",
     input: true,
+    emptySubmit: false,
   };
   render() {
     return (
@@ -20,9 +21,13 @@ export default class Addcomment extends Component {
           <button onClick={this.submitting} disabled={!this.props.user}action="submit">
             Add comment
           </button>
+          {this.state.emptySubmit ? (
+            <p>Must write something before you add</p>
+          ) : null}
           {!this.props.user && this.state.commentInput ? (
             <p>Please log in to add a comment</p>
           ) : null}
+
          
         </form>
       </div>
@@ -43,6 +48,9 @@ export default class Addcomment extends Component {
       };
       this.setState({ commentInput: "" });
       this.props.addNewComment(postComment);
+    }
+    else{
+      this.setState({ emptySubmit: true });
     }
   };
   submitting = (event) => {

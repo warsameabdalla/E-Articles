@@ -8,6 +8,7 @@ export default class Articles extends Component {
     value: undefined,
     query: null,
     sorted: false,
+    errMsg:"",
   };
 
   componentDidMount() {
@@ -23,8 +24,10 @@ export default class Articles extends Component {
     {
       return this.state.isLoading ? (
         <h2>Page is Loading</h2>
-      ) : !this.state.articles.length ? (
-        <h2>Topic does not exist!</h2>
+      ) : this.state.errMsg ? (
+        <h2>{this.state.errMsg}</h2>
+      ) :!this.state.articles.length ? (
+        <h2>Topic {this.props.topic}  has no articles or comments</h2>
       ) : (
         <div className="articles">
           {this.props.topic && !this.state.sorted ? (
@@ -81,7 +84,7 @@ export default class Articles extends Component {
       .then((articles) => {
         this.setState({ articles, isLoading: false, sorted: false });
       })
-      .catch((response) => {});
+   
   };
   sortArticles = (e) => {
     e.preventDefault();
@@ -93,7 +96,7 @@ export default class Articles extends Component {
           articles: orderedArticles,
           isLoading: false,
         });
-      });
+      }) 
   };
   handleInput = ({ target: { value } }) => {
     this.setState({ value });
@@ -108,7 +111,7 @@ export default class Articles extends Component {
             articles: orderedArticles,
             isLoading: false,
           });
-        });
+        }) 
     });
   };
 }
