@@ -35,6 +35,8 @@ export default class Articles extends Component {
           ) : (
             <h2>Articles</h2>
           )}
+          <button onClick={this.sortOrder}>asc</button>
+          <button onClick={this.sortOrder}>desc</button>
           <form onSubmit={this.sortArticles}>
             <label htmlFor="sort_by">Sort Articles By:</label>
             <select
@@ -50,9 +52,6 @@ export default class Articles extends Component {
             </select>
             <button>Submit</button>
           </form>
-
-          <button onClick={this.sortOrder}>asc</button>
-          <button onClick={this.sortOrder}>desc</button>
 
           {this.state.articles.map((article, index) => {
             return (

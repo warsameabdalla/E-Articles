@@ -29,13 +29,13 @@ export default class App extends Component {
           </div>
           <Title />
         </div>
+        <div >
         <img
-          className="img1"
+        className="image"
           src="https://i.redd.it/semlc7p12l401.png"
           alt="football article"
-          height="400px"
-          width="300px"
-        />
+        /></div>
+       
         <NavBar />
         <Router>
           <User path="/user/:username" />

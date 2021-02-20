@@ -35,7 +35,7 @@ export default class Comments extends Component {
           return (
             <div key={index} className="comment">
               <ul>
-                <li>
+                <li className="li">
                   <p>{comment.body}</p>
                   <p>
                     Time posted: {new Date(comment.created_at).toDateString()}
